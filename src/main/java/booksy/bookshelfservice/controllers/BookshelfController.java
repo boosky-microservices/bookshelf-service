@@ -26,7 +26,7 @@ public class BookshelfController {
         return new ResponseEntity<>("ok", HttpStatus.OK);
     }
 
-    @GetMapping("/")
+    @GetMapping("/all")
     public ResponseEntity<List<BookshelfDto>> getBookshelves(@AuthenticationPrincipal Jwt jwt) {
         String userId = jwt != null && jwt.getClaim("sub") != null ? jwt.getClaim("sub").toString().split("\\|")[1] : "noid";
         return new ResponseEntity<>(bookshelfService.getAllUsersBookshelves(userId), HttpStatus.OK);
