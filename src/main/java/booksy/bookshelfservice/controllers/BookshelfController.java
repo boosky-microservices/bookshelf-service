@@ -17,6 +17,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
+@RequestMapping("/")
 public class BookshelfController {
 
    BookshelfService bookshelfService;
@@ -26,7 +27,7 @@ public class BookshelfController {
         return new ResponseEntity<>("ok", HttpStatus.OK);
     }
 
-    @GetMapping("/all")
+    @GetMapping("")
     public ResponseEntity<List<BookshelfDto>> getBookshelves(@AuthenticationPrincipal Jwt jwt) {
         String userId = jwt != null && jwt.getClaim("sub") != null ? jwt.getClaim("sub").toString().split("\\|")[1] : "noid";
         return new ResponseEntity<>(bookshelfService.getAllUsersBookshelves(userId), HttpStatus.OK);
@@ -38,7 +39,7 @@ public class BookshelfController {
     ){
         return new ResponseEntity<>(bookshelfService.getBookshelfById(bookshelfId), HttpStatus.OK);
     }
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<BookshelfDto> createBookshelf(
             @AuthenticationPrincipal Jwt jwt,
             @RequestBody CreateBookshelfDto createBookshelfDto
