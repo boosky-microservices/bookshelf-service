@@ -31,14 +31,10 @@ public class BookshelfController {
 
     @GetMapping("/{bookshelfId}")
     public ResponseEntity<BookshelfDto> getBookkshelfById(
-            @AuthenticationPrincipal Jwt jwt,
             @PathVariable(name = "bookshelfId")  String bookshelfId
     ){
-        String userId = jwt != null && jwt.getClaim("sub") != null ? jwt.getClaim("sub").toString().split("\\|")[1] : "noid";
         return new ResponseEntity<>(bookshelfService.getBookshelfById(bookshelfId), HttpStatus.OK);
     }
-
-    // TODO : handle noid
     @PostMapping("/")
     public ResponseEntity<BookshelfDto> createBookshelf(
             @AuthenticationPrincipal Jwt jwt,
@@ -50,11 +46,9 @@ public class BookshelfController {
     }
     @PutMapping("/{bookshelfId}")
     public ResponseEntity<BookshelfDto> putBookIntoBookshelf(
-            @AuthenticationPrincipal Jwt jwt,
             @PathVariable String bookshelfId,
             @RequestBody AddBookToShelfDto addBookToShelfDto
             ){
-        String userId = jwt != null && jwt.getClaim("sub") != null ? jwt.getClaim("sub").toString().split("\\|")[1] : "noid";
         return new ResponseEntity<>(bookshelfService.addBookToBookshelf(addBookToShelfDto.getBookId(),bookshelfId), HttpStatus.OK);
     }
 
@@ -72,6 +66,27 @@ public class BookshelfController {
         bookshelfService.removeBookshelf(bookshelfId);
         return new ResponseEntity<>(new ResponseMessage(HttpStatus.OK,"Bookshelf removed"), HttpStatus.OK);
     }
+
+    @DeleteMapping("/{bookshelfId}/books/{bookId}")
+    public ResponseEntity<ResponseMessage> removeBookFromBookshelf(
+            @PathVariable String bookshelfId,
+            @PathVariable String bookId
+    ){
+        bookshelfService.removeBookFromBookshelf(bookId,bookshelfId);
+        return new ResponseEntity<>(new ResponseMessage(HttpStatus.OK,"Book removed from bookshelf"), HttpStatus.OK);
+
+    }
+    @DeleteMapping("/{bookshelfName}/users")
+    public ResponseEntity<ResponseMessage> removeBookFromBookshelfByNameAndUserId(
+            @AuthenticationPrincipal Jwt jwt,
+            @PathVariable String bookshelfName
+    ){
+        String userId = jwt != null && jwt.getClaim("sub") != null ? jwt.getClaim("sub").toString().split("\\|")[1] : "noid";
+        bookshelfService.deleteBookshelf(bookshelfName,userId);
+        return new ResponseEntity<>(new ResponseMessage(HttpStatus.OK,"Bookshelf removed"), HttpStatus.OK);
+
+    }
+
 
 
 

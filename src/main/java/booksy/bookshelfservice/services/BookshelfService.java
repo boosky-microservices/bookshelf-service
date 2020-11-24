@@ -6,8 +6,6 @@ import booksy.bookshelfservice.models.dto.BookshelfDto;
 import booksy.bookshelfservice.models.entities.Bookshelf;
 import booksy.bookshelfservice.models.mappers.BookshelfMapper;
 import booksy.bookshelfservice.repository.BookshelfRepository;
-import booksy.bookshelfservice.repository.UserRepository;
-import booksy.bookshelfservice.utils.ResponseMessage;
 import lombok.AllArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
@@ -22,8 +20,6 @@ import java.util.stream.Collectors;
 public class BookshelfService {
 
     private BookshelfRepository bookshelfRepository;
-
-    private UserRepository userRepository;
 
     private BookshelfMapper bookshelfMapper;
 
