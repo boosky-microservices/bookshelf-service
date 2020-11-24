@@ -21,6 +21,10 @@ public class BookshelfController {
 
    BookshelfService bookshelfService;
 
+    @GetMapping("/health")
+    public ResponseEntity<String> health() {
+        return new ResponseEntity<>("ok", HttpStatus.OK);
+    }
 
     @GetMapping("/")
     public ResponseEntity<List<BookshelfDto>> getBookshelves(@AuthenticationPrincipal Jwt jwt) {
