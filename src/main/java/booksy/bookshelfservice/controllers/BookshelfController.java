@@ -17,7 +17,6 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/v1/shelves")
 public class BookshelfController {
 
    BookshelfService bookshelfService;
@@ -86,9 +85,4 @@ public class BookshelfController {
         return new ResponseEntity<>(new ResponseMessage(HttpStatus.OK,"Bookshelf removed"), HttpStatus.OK);
 
     }
-
-
-
-
-
 }
