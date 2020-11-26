@@ -17,7 +17,6 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@CrossOrigin(origins = "*")
 public class BookshelfController {
 
    BookshelfService bookshelfService;
