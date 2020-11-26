@@ -12,7 +12,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BookshelfDto {
-    private ObjectId  _id;
+    private String  _id;
     private String name;
     private String userId;
     private List<String> bookIds;

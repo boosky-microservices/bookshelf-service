@@ -6,9 +6,15 @@ import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring",injectionStrategy = InjectionStrategy.CONSTRUCTOR)
+@FunctionalInterface()
+@Mapper(componentModel = "spring", injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface BookshelfMapper {
 
-   //@Mapping(target = "userId", ignore = true)
+    //@Mapping(target = "userId", ignore = true)
+    @Mapping(target = "_id", expression = "java(idToString(bookshelf))")
     BookshelfDto bookshelfToBookshelfDto(Bookshelf bookshelf);
+
+    default String idToString(Bookshelf bookshelf) {
+        return bookshelf.get_id().toHexString();
+    }
 }
